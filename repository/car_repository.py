@@ -1,7 +1,6 @@
 from bson import ObjectId
-from jinja2.lexer import Failure
 from pymongo.errors import PyMongoError
-from returns.result import Success
+from returns.result import Success, Failure
 
 from database.connect import cars as default_cars
 
@@ -16,9 +15,11 @@ def insert_car(car: dict[str:str], collection=default_cars):
 def find_car_by_id(id: str, collection=default_cars):
     try:
         car = collection.find_one({"_id": ObjectId(id)})
+        breakpoint()
         return Success(car)
-    except PyMongoError as e:
+    except Exception as e:
         return Failure(str(e))
+
 
 def find_all_cars(collection=default_cars):
     try:

@@ -1,8 +1,7 @@
-from functools import partial
-from operator import add
-from toolz import pipe
+from flask import Flask
+from controllers.driver_controller import driver_blueprints
 
-from repository.csv_repository import init_taxi_drivers
-
+app = Flask(__name__)
+app.register_blueprint(driver_blueprints)
 if __name__ == '__main__':
-    init_taxi_drivers()
+    app.run(debug=True)
